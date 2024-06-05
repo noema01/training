@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 Hi!2222
+=======
+Hi!
+
+Hello
+>>>>>>> origin/haidar

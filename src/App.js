@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import sortBy from 'sort-by';
-import {CSSTransitionGroup} from 'react-transition-group';
+import { CSSTransitionGroup } from 'react-transition-group';
 import SwipeableViews from 'react-swipeable-views';
 import AppBar from 'material-ui/AppBar';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
-import {Tabs, Tab} from 'material-ui/Tabs';
+import { Tabs, Tab } from 'material-ui/Tabs';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import CheckIcon from 'material-ui/svg-icons/action/check-circle';
 import ListIcon from 'material-ui/svg-icons/action/list';
@@ -17,7 +17,10 @@ import ColumnList from './ColumnList';
 import ConfirmDialog from './ConfirmDialog';
 import If from './If';
 import './App.css';
-
+import IconButton from "@material-ui/core/IconButton";
+import Snackbar from "@material-ui/core/Snackbar";
+import Button from "@material-ui/core/Button";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
 /**
  * @description Main App component.
  * @constructor
@@ -26,7 +29,6 @@ import './App.css';
 class App extends Component {
 	constructor(props) {
 		super(props);
-
 		/**
 		 * @typedef {Object} ComponentState
 		 * @property {Object[]} items - All list items of the app.
@@ -39,6 +41,9 @@ class App extends Component {
 
 		/** @type {ComponentState} */
 		this.state = {
+			open: false,
+			actionstate:false,
+			deletion: false,
 			items: [],
 			taskIdCounter: 0,
 			submitDisabled: true,
@@ -47,6 +52,12 @@ class App extends Component {
 			removeMode: false,
 		};
 	}
+	handleToClose = (event, reason) => {
+		if (reason === "clickaway") return;
+		this.setState({ open: false });
+		this.setState({ deletion: false });
+		this.setState({ actionstate: false });
+	};
 
 	/**
 	 * Lifecycle event handler called just after the App loads into the DOM.
@@ -76,13 +87,14 @@ class App extends Component {
 		this.setState(previousState => {
 			const { items = [] } = previousState;
 			const { taskIdCounter = 0 } = previousState;
-			const taskId = taskIdCounter+1;
+			const taskId = taskIdCounter + 1;
 			const newTask = {
 				id: taskId,
 				title: value,
 				status: 'To Do'
 			};
 			items.push(newTask);
+			this.setState({ open: true });
 			return {
 				items: items.sort(sortBy('id')),
 				submitDisabled: true,
@@ -102,7 +114,7 @@ class App extends Component {
 	handleUpdateTask = (task) => {
 		this.setState(previousState => {
 			const { items } = previousState;
-			const filteredItems = items.filter( item => item.id !== task.id);
+			const filteredItems = items.filter(item => item.id !== task.id);
 			task.status = (task.status === 'To Do') ? 'Done' : 'To Do';
 			filteredItems.push(task);
 			return {
@@ -111,6 +123,8 @@ class App extends Component {
 		}, function stateUpdateComplete() {
 			this.updateLocalStorageItems(this.state.items);
 		}.bind(this));
+
+		this.setState({actionstate : true});
 	};
 
 	/**
@@ -120,7 +134,7 @@ class App extends Component {
 	handleRemoveTask = (task) => {
 		this.setState(previousState => {
 			const { items } = previousState;
-			const filteredItems = items.filter( item => item.id !== task.id);
+			const filteredItems = items.filter(item => item.id !== task.id);
 			return {
 				items: filteredItems.sort(sortBy('id'))
 			}
@@ -136,11 +150,11 @@ class App extends Component {
 	 * @param {value} value - The task description
 	 */
 	handleTextFieldChange = (event, value) => {
-		if((value.length > 0) && this.state.submitDisabled){
-			this.setState({submitDisabled: false});
+		if ((value.length > 0) && this.state.submitDisabled) {
+			this.setState({ submitDisabled: false });
 		}
-		else if((value.length === 0) && !this.state.submitDisabled){
-			this.setState({submitDisabled: true});
+		else if ((value.length === 0) && !this.state.submitDisabled) {
+			this.setState({ submitDisabled: true });
 		}
 	};
 
@@ -179,7 +193,7 @@ class App extends Component {
 	 */
 	enableRemoveMode = () => {
 		if (!this.state.removeMode) {
-			this.setState({removeMode: true});
+			this.setState({ removeMode: true });
 		}
 	};
 
@@ -188,7 +202,7 @@ class App extends Component {
 	 */
 	disableRemoveMode = () => {
 		if (this.state.removeMode) {
-			this.setState({removeMode: false});
+			this.setState({ removeMode: false });
 		}
 	};
 
@@ -197,24 +211,25 @@ class App extends Component {
 	 */
 	clearTasks = () => {
 		this.handleDialogClose();
-		this.setState({removeMode: false, items: []}, function stateUpdateComplete() {
+		this.setState({ removeMode: false, items: [] }, function stateUpdateComplete() {
 			// Update local storage
 			this.updateLocalStorageItems(this.state.items);
 		});
+		this.setState( {deletion : true});
 	};
 
 	/**
 	 * @description Open the clear tasks dialog.
 	 */
 	handleDialogOpen = () => {
-		this.setState({dialogOpen: true});
+		this.setState({ dialogOpen: true });
 	};
 
 	/**
 	 * @description Close the clear task dialog.
 	 */
 	handleDialogClose = () => {
-		this.setState({dialogOpen: false});
+		this.setState({ dialogOpen: false });
 	};
 
 	/**
@@ -223,7 +238,7 @@ class App extends Component {
 	 */
 	keyPress = (e) => {
 		// If Enter key
-		if(e.keyCode === 13){
+		if (e.keyCode === 13) {
 			// Call method to add the task if not empty
 			this.addTask();
 			// put the login here
@@ -231,14 +246,92 @@ class App extends Component {
 	};
 
 	render() {
-		const { items = [] }  = this.state;
+		const { items = [] } = this.state;
 		const columns = [
-			{ title: 'To Do', items: items.filter( item => item.status === 'To Do'), icon: <TodoIcon />},
-			{ title: 'Done', items: items.filter( item => item.status === 'Done'), icon: <CheckIcon />},
-			{ title: 'All', items, icon: <ListIcon />},
+			{ title: 'To Do', items: items.filter(item => item.status === 'To Do'), icon: <TodoIcon /> },
+			{ title: 'Done', items: items.filter(item => item.status === 'Done'), icon: <CheckIcon /> },
+			{ title: 'All', items, icon: <ListIcon /> },
 		];
 		return (
 			<MuiThemeProvider>
+				<div>
+
+					<Snackbar
+						anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+						open={this.state.open}
+						autoHideDuration={3000}
+						onClose={this.handleToClose}
+					>
+						<SnackbarContent
+							style={{ backgroundColor: "green" }} 
+							message="Task added successfully"
+							action={
+								<React.Fragment>
+									<IconButton
+										size="small"
+										aria-label="close"
+										color="inherit"
+										onClick={this.handleToClose}
+									>
+										<CloseIcon fontSize="small" />
+									</IconButton>
+								</React.Fragment>
+							}
+						/>
+					</Snackbar>
+				</div>
+				<div>
+				    <Snackbar
+						anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+						open={this.state.deletion}
+						autoHideDuration={3000}
+						onClose={this.handleToClose}
+					>
+						<SnackbarContent
+							style={{ backgroundColor: "red" }} 
+							message="All tasks have been removed !"
+							action={
+								<React.Fragment>
+									<IconButton
+										size="small"
+										aria-label="close"
+										color="inherit"
+										onClick={this.handleToClose}
+									>
+										<CloseIcon fontSize="small" />
+									</IconButton>
+								</React.Fragment>
+							}
+						/>
+					</Snackbar>
+				</div>
+
+				<div>
+				    <Snackbar
+						anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+						open={this.state.actionstate}
+						autoHideDuration={3000}
+						onClose={this.handleToClose}
+					>
+						<SnackbarContent
+							style={{ backgroundColor: "blue" }} 
+							message="Task status changed!"
+							action={
+								<React.Fragment>
+									<IconButton
+										size="small"
+										aria-label="close"
+										color="inherit"
+										onClick={this.handleToClose}
+									>
+										<CloseIcon fontSize="small" />
+									</IconButton>
+								</React.Fragment>
+							}
+						/>
+					</Snackbar>
+				</div>
+				
 				<div className="App">
 					{/* Clear Tasks Confirmation Dialog */}
 					<ConfirmDialog
@@ -249,12 +342,12 @@ class App extends Component {
 						open={this.state.dialogOpen}
 					/>
 					<AppBar
-						title={<span style={{color: 'white'}}>To-Do List</span>}
+						title={<span style={{ color: 'white' }}>To-Do List</span>}
 						showMenuIconButton={false}
-						style={{backgroundColor: 'rgb(0, 151, 167)', position: 'fixed', zIndex: 9999,}}
+						style={{ backgroundColor: 'rgb(0, 151, 167)', position: 'fixed', zIndex: 9999, }}
 					/>
 					<div className="App-container">
-						<div style={{position: 'fixed', width: '100%', paddingTop: 64, zIndex: 8888, backgroundColor: 'white'}}>
+						<div style={{ position: 'fixed', width: '100%', paddingTop: 64, zIndex: 8888, backgroundColor: 'white' }}>
 							<TextField
 								hintText="Type task"
 								floatingLabelText="Add Task"
@@ -262,12 +355,12 @@ class App extends Component {
 									this.taskInput = taskInput;
 								}}
 								disabled={this.state.removeMode}
-								style={{margin: 10, width: '60%', maxWidth: 300}}
+								style={{ margin: 10, width: '60%', maxWidth: 300 }}
 								onChange={this.handleTextFieldChange}
 								onKeyDown={this.keyPress}
 							/>
 							<RaisedButton
-								style={{margin: 10, width: '30%', maxWidth: 56}}
+								style={{ margin: 10, width: '30%', maxWidth: 56 }}
 								label="Create"
 								onClick={this.addTask}
 								disabled={this.state.submitDisabled} />
@@ -275,14 +368,14 @@ class App extends Component {
 								onChange={this.handleChange}
 								value={this.state.slideIndex}
 							>
-								{columns.map((column,index) => (
+								{columns.map((column, index) => (
 									<Tab
 										key={index}
 										value={index}
 										icon={column.icon}
 										label={
 											<div>
-												{column.title} ({(column.title !== 'All') ? column.items.filter(item => item.status === column.title).length: items.length})
+												{column.title} ({(column.title !== 'All') ? column.items.filter(item => item.status === column.title).length : items.length})
 											</div>
 										}
 									/>
@@ -297,9 +390,9 @@ class App extends Component {
 							{this.state.removeMode &&
 								<div className="remove-mode">
 									<RaisedButton
-									label="Delete All Tasks"
-									secondary={true}
-									onClick={this.handleDialogOpen}
+										label="Delete All Tasks"
+										secondary={true}
+										onClick={this.handleDialogOpen}
 									/>
 								</div>
 							}
@@ -307,9 +400,9 @@ class App extends Component {
 								<SwipeableViews
 									index={this.state.slideIndex}
 									onChangeIndex={this.handleChange}
-									style={{width: '100%'}}
+									style={{ width: '100%' }}
 								>
-									{columns.map((column,index) => (
+									{columns.map((column, index) => (
 										<div
 											className="swipeable-views"
 											key={index}>

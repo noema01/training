@@ -69,6 +69,7 @@ class App extends Component {
           status: 'To Do',
         };
         items.push(newTask);
+        this.setState({ open:true});
         return {
           items: items.sort(sortBy('id')),
           submitDisabled: true,
@@ -98,6 +99,7 @@ class App extends Component {
         this.updateLocalStorageItems(this.state.items);
       }
     );
+    this.setState({ actionstate:true});
   };
 
   handleEditTask = (id, newTitle) => {
@@ -200,196 +202,196 @@ class App extends Component {
 		}
 	};
 
-	render() {
-		const { items = [] } = this.state;
-		const columns = [
-			{ title: 'To Do', items: items.filter(item => item.status === 'To Do'), icon: <TodoIcon /> },
-			{ title: 'Done', items: items.filter(item => item.status === 'Done'), icon: <CheckIcon /> },
-			{ title: 'All', items, icon: <ListIcon /> },
-		];
-		return (
-			<MuiThemeProvider>
-				<div>
+	// render() {
+	// 	const { items = [] } = this.state;
+	// 	const columns = [
+	// 		{ title: 'To Do', items: items.filter(item => item.status === 'To Do'), icon: <TodoIcon /> },
+	// 		{ title: 'Done', items: items.filter(item => item.status === 'Done'), icon: <CheckIcon /> },
+	// 		{ title: 'All', items, icon: <ListIcon /> },
+	// 	];
+	// 	return (
+	// 		<MuiThemeProvider>
+	// 			<div>
 
-					<Snackbar
-						anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-						open={this.state.open}
-						autoHideDuration={3000}
-						onClose={this.handleToClose}
-					>
-						<SnackbarContent
-							style={{ backgroundColor: "green" }} 
-							message="Task added successfully"
-							action={
-								<React.Fragment>
-									<IconButton
-										size="small"
-										aria-label="close"
-										color="inherit"
-										onClick={this.handleToClose}
-									>
-										<CloseIcon fontSize="small" />
-									</IconButton>
-								</React.Fragment>
-							}
-						/>
-					</Snackbar>
-				</div>
-				<div>
-				    <Snackbar
-						anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-						open={this.state.deletion}
-						autoHideDuration={3000}
-						onClose={this.handleToClose}
-					>
-						<SnackbarContent
-							style={{ backgroundColor: "red" }} 
-							message="All tasks have been removed !"
-							action={
-								<React.Fragment>
-									<IconButton
-										size="small"
-										aria-label="close"
-										color="inherit"
-										onClick={this.handleToClose}
-									>
-										<CloseIcon fontSize="small" />
-									</IconButton>
-								</React.Fragment>
-							}
-						/>
-					</Snackbar>
-				</div>
+	// 				<Snackbar
+	// 					anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+	// 					open={this.state.open}
+	// 					autoHideDuration={3000}
+	// 					onClose={this.handleToClose}
+	// 				>
+	// 					<SnackbarContent
+	// 						style={{ backgroundColor: "green" }} 
+	// 						message="Task added successfully"
+	// 						action={
+	// 							<React.Fragment>
+	// 								<IconButton
+	// 									size="small"
+	// 									aria-label="close"
+	// 									color="inherit"
+	// 									onClick={this.handleToClose}
+	// 								>
+	// 									<CloseIcon fontSize="small" />
+	// 								</IconButton>
+	// 							</React.Fragment>
+	// 						}
+	// 					/>
+	// 				</Snackbar>
+	// 			</div>
+	// 			<div>
+	// 			    <Snackbar
+	// 					anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+	// 					open={this.state.deletion}
+	// 					autoHideDuration={3000}
+	// 					onClose={this.handleToClose}
+	// 				>
+	// 					<SnackbarContent
+	// 						style={{ backgroundColor: "red" }} 
+	// 						message="All tasks have been removed !"
+	// 						action={
+	// 							<React.Fragment>
+	// 								<IconButton
+	// 									size="small"
+	// 									aria-label="close"
+	// 									color="inherit"
+	// 									onClick={this.handleToClose}
+	// 								>
+	// 									<CloseIcon fontSize="small" />
+	// 								</IconButton>
+	// 							</React.Fragment>
+	// 						}
+	// 					/>
+	// 				</Snackbar>
+	// 			</div>
 
-				<div>
-				    <Snackbar
-						anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
-						open={this.state.actionstate}
-						autoHideDuration={3000}
-						onClose={this.handleToClose}
-					>
-						<SnackbarContent
-							style={{ backgroundColor: "blue" }} 
-							message="Task status changed!"
-							action={
-								<React.Fragment>
-									<IconButton
-										size="small"
-										aria-label="close"
-										color="inherit"
-										onClick={this.handleToClose}
-									>
-										<CloseIcon fontSize="small" />
-									</IconButton>
-								</React.Fragment>
-							}
-						/>
-					</Snackbar>
-				</div>
+	// 			<div>
+	// 			    <Snackbar
+	// 					anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+	// 					open={this.state.actionstate}
+	// 					autoHideDuration={3000}
+	// 					onClose={this.handleToClose}
+	// 				>
+	// 					<SnackbarContent
+	// 						style={{ backgroundColor: "blue" }} 
+	// 						message="Task status changed!"
+	// 						action={
+	// 							<React.Fragment>
+	// 								<IconButton
+	// 									size="small"
+	// 									aria-label="close"
+	// 									color="inherit"
+	// 									onClick={this.handleToClose}
+	// 								>
+	// 									<CloseIcon fontSize="small" />
+	// 								</IconButton>
+	// 							</React.Fragment>
+	// 						}
+	// 					/>
+	// 				</Snackbar>
+	// 			</div>
 				
-				<div className="App">
-					{/* Clear Tasks Confirmation Dialog */}
-					<ConfirmDialog
-						title="Clear All Tasks"
-						message={'Are you sure you want to remove all tasks from the App?'}
-						onCancel={this.handleDialogClose}
-						onConfirm={this.clearTasks}
-						open={this.state.dialogOpen}
-					/>
-					<AppBar
-						title={<span style={{ color: 'white' }}>To-Do List</span>}
-						showMenuIconButton={false}
-						style={{ backgroundColor: 'rgb(0, 151, 167)', position: 'fixed', zIndex: 9999, }}
-					/>
-					<div className="App-container">
-						<div style={{ position: 'fixed', width: '100%', paddingTop: 64, zIndex: 8888, backgroundColor: 'white' }}>
-							<TextField
-								hintText="Type task"
-								floatingLabelText="Add Task"
-								ref={(taskInput) => {
-									this.taskInput = taskInput;
-								}}
-								disabled={this.state.removeMode}
-								style={{ margin: 10, width: '60%', maxWidth: 300 }}
-								onChange={this.handleTextFieldChange}
-								onKeyDown={this.keyPress}
-							/>
-							<RaisedButton
-								style={{ margin: 10, width: '30%', maxWidth: 56 }}
-								label="Create"
-								onClick={this.addTask}
-								disabled={this.state.submitDisabled} />
-							<Tabs
-								onChange={this.handleChange}
-								value={this.state.slideIndex}
-							>
-								{columns.map((column, index) => (
-									<Tab
-										key={index}
-										value={index}
-										icon={column.icon}
-										label={
-											<div>
-												{column.title} ({(column.title !== 'All') ? column.items.filter(item => item.status === column.title).length : items.length})
-											</div>
-										}
-									/>
-								))}
-							</Tabs>
-						</div>
-						<div className="app-separator">-</div>
-						<CSSTransitionGroup
-							transitionName="remove-mode-animation"
-							transitionEnterTimeout={300}
-							transitionLeaveTimeout={300}>
-							{this.state.removeMode &&
-								<div className="remove-mode">
-									<RaisedButton
-										label="Delete All Tasks"
-										secondary={true}
-										onClick={this.handleDialogOpen}
-									/>
-								</div>
-							}
-							<div className="app-lists">
-								<SwipeableViews
-									index={this.state.slideIndex}
-									onChangeIndex={this.handleChange}
-									style={{ width: '100%' }}
-								>
-									{columns.map((column, index) => (
-										<div
-											className="swipeable-views"
-											key={index}>
-											<ColumnList
-												title={column.title}
-												items={column.items}
-												updateTask={this.handleUpdateTask}
-												removeTask={this.handleRemoveTask}
-												removeMode={this.state.removeMode}
-											/>
-										</div>
-									))}
-								</SwipeableViews>
-							</div>
-						</CSSTransitionGroup>
-					</div>
-					<div className="enable-remove-mode">
-						<If test={!this.state.removeMode}>
-							<FloatingActionButton onClick={this.enableRemoveMode}>
-								<EditIcon />
-							</FloatingActionButton>
-						</If>
-						<If test={this.state.removeMode}>
-							<FloatingActionButton secondary={true} onClick={this.disableRemoveMode}>
-								<CloseIcon />
-							</FloatingActionButton>
-						</If>
-					</div>
-				</div>
-			</MuiThemeProvider>
-		);
-	}
+	// 			<div className="App">
+	// 				{/* Clear Tasks Confirmation Dialog */}
+	// 				<ConfirmDialog
+	// 					title="Clear All Tasks"
+	// 					message={'Are you sure you want to remove all tasks from the App?'}
+	// 					onCancel={this.handleDialogClose}
+	// 					onConfirm={this.clearTasks}
+	// 					open={this.state.dialogOpen}
+	// 				/>
+	// 				<AppBar
+	// 					title={<span style={{ color: 'white' }}>To-Do List</span>}
+	// 					showMenuIconButton={false}
+	// 					style={{ backgroundColor: 'rgb(0, 151, 167)', position: 'fixed', zIndex: 9999, }}
+	// 				/>
+	// 				<div className="App-container">
+	// 					<div style={{ position: 'fixed', width: '100%', paddingTop: 64, zIndex: 8888, backgroundColor: 'white' }}>
+	// 						<TextField
+	// 							hintText="Type task"
+	// 							floatingLabelText="Add Task"
+	// 							ref={(taskInput) => {
+	// 								this.taskInput = taskInput;
+	// 							}}
+	// 							disabled={this.state.removeMode}
+	// 							style={{ margin: 10, width: '60%', maxWidth: 300 }}
+	// 							onChange={this.handleTextFieldChange}
+	// 							onKeyDown={this.keyPress}
+	// 						/>
+	// 						<RaisedButton
+	// 							style={{ margin: 10, width: '30%', maxWidth: 56 }}
+	// 							label="Create"
+	// 							onClick={this.addTask}
+	// 							disabled={this.state.submitDisabled} />
+	// 						<Tabs
+	// 							onChange={this.handleChange}
+	// 							value={this.state.slideIndex}
+	// 						>
+	// 							{columns.map((column, index) => (
+	// 								<Tab
+	// 									key={index}
+	// 									value={index}
+	// 									icon={column.icon}
+	// 									label={
+	// 										<div>
+	// 											{column.title} ({(column.title !== 'All') ? column.items.filter(item => item.status === column.title).length : items.length})
+	// 										</div>
+	// 									}
+	// 								/>
+	// 							))}
+	// 						</Tabs>
+	// 					</div>
+	// 					<div className="app-separator">-</div>
+	// 					<CSSTransitionGroup
+	// 						transitionName="remove-mode-animation"
+	// 						transitionEnterTimeout={300}
+	// 						transitionLeaveTimeout={300}>
+	// 						{this.state.removeMode &&
+	// 							<div className="remove-mode">
+	// 								<RaisedButton
+	// 									label="Delete All Tasks"
+	// 									secondary={true}
+	// 									onClick={this.handleDialogOpen}
+	// 								/>
+	// 							</div>
+	// 						}
+	// 						<div className="app-lists">
+	// 							<SwipeableViews
+	// 								index={this.state.slideIndex}
+	// 								onChangeIndex={this.handleChange}
+	// 								style={{ width: '100%' }}
+	// 							>
+	// 								{columns.map((column, index) => (
+	// 									<div
+	// 										className="swipeable-views"
+	// 										key={index}>
+	// 										<ColumnList
+	// 											title={column.title}
+	// 											items={column.items}
+	// 											updateTask={this.handleUpdateTask}
+	// 											removeTask={this.handleRemoveTask}
+	// 											removeMode={this.state.removeMode}
+	// 										/>
+	// 									</div>
+	// 								))}
+	// 							</SwipeableViews>
+	// 						</div>
+	// 					</CSSTransitionGroup>
+	// 				</div>
+	// 				<div className="enable-remove-mode">
+	// 					<If test={!this.state.removeMode}>
+	// 						<FloatingActionButton onClick={this.enableRemoveMode}>
+	// 							<EditIcon />
+	// 						</FloatingActionButton>
+	// 					</If>
+	// 					<If test={this.state.removeMode}>
+	// 						<FloatingActionButton secondary={true} onClick={this.disableRemoveMode}>
+	// 							<CloseIcon />
+	// 						</FloatingActionButton>
+	// 					</If>
+	// 				</div>
+	// 			</div>
+	// 		</MuiThemeProvider>
+	// 	);
+	// }
   render() {
     const { items = [] } = this.state;
     const columns = [
@@ -399,6 +401,83 @@ class App extends Component {
     ];
     return (
       <MuiThemeProvider>
+        <div>
+
+          <Snackbar
+            anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+            open={this.state.open}
+            autoHideDuration={3000}
+            onClose={this.handleToClose}
+          >
+            <SnackbarContent
+              style={{ backgroundColor: "green" }} 
+              message="Task added successfully"
+              action={
+                <React.Fragment>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={this.handleToClose}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </React.Fragment>
+              }
+            />
+          </Snackbar>
+          </div>
+          <div>
+            <Snackbar
+            anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+            open={this.state.deletion}
+            autoHideDuration={3000}
+            onClose={this.handleToClose}
+          >
+            <SnackbarContent
+              style={{ backgroundColor: "red" }} 
+              message="All tasks have been removed !"
+              action={
+                <React.Fragment>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={this.handleToClose}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </React.Fragment>
+              }
+            />
+          </Snackbar>
+          </div>
+
+          <div>
+            <Snackbar
+            anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
+            open={this.state.actionstate}
+            autoHideDuration={3000}
+            onClose={this.handleToClose}
+          >
+            <SnackbarContent
+              style={{ backgroundColor: "blue" }} 
+              message="Task status changed!"
+              action={
+                <React.Fragment>
+                  <IconButton
+                    size="small"
+                    aria-label="close"
+                    color="inherit"
+                    onClick={this.handleToClose}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                </React.Fragment>
+              }
+            />
+          </Snackbar>
+          </div>
         <div className="App">
           <ConfirmDialog
             title="Clear All Tasks"

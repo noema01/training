@@ -3,13 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.61",
+    "@material/snackbar": "^14.0.0",
     "material-ui": "^0.19.4",
     "prop-types": "^15.5.8",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "react-scripts": "1.0.14",
     "react-swipeable-views": "^0.12.10",
     "react-transition-group": "^1.2.1",
+    "semantic-ui-css": "^2.5.0",
+    "semantic-ui-react": "^2.1.5",
     "sort-by": "^1.2.0"
   },
   "scripts": {

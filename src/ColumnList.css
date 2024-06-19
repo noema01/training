@@ -14,13 +14,27 @@
 
 .app-lists .column-list .list-items li {
   position: relative;
-  width: 80%;
-  padding: 10px 0;
+  display: flex; 
+  align-items: center; 
+  width: 100%; 
+  padding: 10px 20px; 
   border-radius: 3px;
   background-color: #f4fdfe;
   margin-bottom: 10px;
 }
-
+.app-lists .column-list .list-items li .EditButton {
+  margin-right: 10px; 
+}
+.app-lists .column-list .list-items li .task-label {
+  flex: 1; 
+}
+.Rating {
+  margin-right: 10px; 
+}
+.EditButton {
+  
+  padding: 5px 10px;
+}
 .app-lists .column-list .list-items li input {
   margin: 0 10px;
 }

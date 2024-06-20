@@ -1,0 +1,45 @@
+.app-lists {
+  display: flex;
+}
+
+.app-lists .column-list {
+  width: 100%;
+}
+
+.app-lists .column-list .list-items {
+  list-style: none;
+  margin: 0;
+  padding: 20px 0;
+}
+
+.app-lists .column-list .list-items li {
+  position: relative;
+  display: flex; 
+  align-items: center; 
+  width: 100%; 
+  padding: 10px 20px; 
+  border-radius: 3px;
+  background-color: #f4fdfe;
+  margin-bottom: 10px;
+}
+.app-lists .column-list .list-items li .EditButton {
+  margin-right: 10px; 
+}
+.app-lists .column-list .list-items li .task-label {
+  flex: 1; 
+}
+.Rating {
+  margin-right: 10px; 
+}
+.EditButton {
+  
+  padding: 5px 10px;
+}
+.app-lists .column-list .list-items li input {
+  margin: 0 10px;
+}
+
+.task-done {
+  text-decoration: line-through;
+}
+

@@ -1,75 +1,104 @@
-# React To-Do List
+# [Horizon UI TailwindCSS React ⚡️](https://horizon-ui.com/horizon-tailwind-react) [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social&logo=twitter)](https://twitter.com/intent/tweet?text=Check%20Horizon%20UI,%20the%20trendiest%20open-source%20admin%20template%20for%20%23tailwindcss%20and%20%23react!%0A%0Ahorizon-ui.com%20)
 
-This is a simple To-Do list app done with React. All tasks are saved into browser's local storage only. The app development
-was inspired by the first brazilian live coding of the [React Nanodegree Program](https://udacity.com/course/react-nanodegree--nd019). 
+![version](https://img.shields.io/badge/version-1.0.1-brightgreen.svg)
+![license](https://img.shields.io/badge/license-MIT-blue.svg)
+[![GitHub issues open](https://img.shields.io/github/issues/horizon-ui/horizon-tailwind-react.svg?maxAge=2592000)](https://github.com/horizon-ui/horizon-tailwind-react/issues?q=is%3Aopen+is%3Aissue)
 
-<img src="https://raw.githubusercontent.com/computationalcore/react-to-do-list/gh-pages/to-do-list.gif" alt="Todo List" style="width: 320px; height: 582px"/>
+<p>&nbsp;</p>
 
-## Demo
+[<img alt="Horizon UI - Tailwind CSS React Admin dashboard template" src="https://i.ibb.co/1zhBQ2J/horizon-ui-tailwind-2.png" />](https://github.com/horizon-ui/horizon-tailwind-react)
 
-[computationalcore.github.io/react-to-do-list](https://computationalcore.github.io/react-to-do-list)
+<p>&nbsp;</p>
 
-## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing 
-purposes. 
+Get started and build your dream web app with Horizon UI, the trendiest & innovative Open Source Admin Template for Tailwind CSS & React!
 
-### Prerequisites
+---
 
-The project can be built with npm or yarn, so choose one of the approach bellow in case you don't 
-have any installed on your system. 
+### Introduction
 
-* npm is distributed with Node.js which means that when you download Node.js, 
-you automatically get npm installed on your computer. [Download Node.js](https://nodejs.org/en/download/)
+Designed for those who like modern UI elements and beautiful websites. Made of hundred of elements, designed blocks and fully coded pages, Horizon UI is ready to help you create stunning websites and webapps.
 
-or
+Save hundreds of hours trying to create and develop a dashboard from scratch.
+The fastest, most responsive & trendiest dashboard for Tailwind CSS is here. Seriously.
 
-* Yarn is a package manager built by Facebook Team and seems to be faster than npm in general.  [Download Yarn](https://yarnpkg.com/en/docs/install)
+With Horizon UI you will find many examples for pages like NFTs Pages,
+Authentication Pages, Profile and so on. Just choose between a Basic Design or a cover and you are good to go!
 
-### Installing
+### 🎉 [NEW] Horizon UI Components
+All the main components from both versions, this will help you to see and interact with all & the latest added components of Horizon (also, new components are on the way, stay tuned)! ⚡️
+<a href="https://horizon-ui.com/components/?ref=readme-horizon-tailwind-react" target="_blank">See all components</a>
 
-To download the project follow the instructions bellow
 
+### Documentation
+
+Each element is well presented in a very complex documentation. You can read more about the <a href="https://horizon-ui.com/docs-tailwind/docs/react/installation?ref=readme-horizon-tailwind-react" target="_blank">documentation here.</a>
+
+### Quick Start
+
+Install Horizon UI by running either of the following:
+
+- Install NodeJS LTS from [NodeJs Official Page](https://nodejs.org/en/?ref=horizon-documentation) (NOTE: Product only works with LTS version).
+
+Clone the repository with the following command:
+
+```bash
+git clone https://github.com/horizon-ui/horizon-tailwind-react.git
 ```
-git clone https://github.com/computationalcore/react-to-do-list
-cd myreads
-```
 
-Install dependencies and run with:
- 
-npm
-```
+Run in terminal this command:
+
+```bash
 npm install
+```
+
+Then run this command to start your local server
+
+```bash
 npm start
 ```
-or
 
-yarn
-```
-yarn install
-yarn start
-```
+### Example Pages
 
-## Versions
+If you want to get inspiration or just show something directly to your clients, you can jump start your development with our pre-built example pages. You will be able to quickly set up the basic structure for your web project.
 
-v1.0 
-* Default project implementation 
- 
-v1.1 
-* Change to material UI based interface
-* Task transitions animations
-* Remove tasks capabilities
+View <a href="https://horizon-ui.com/horizon-tailwind-react/?ref=readme-horizon-tailwind-react" target="_blank">example pages here.</a>
 
-## Authors
-Vin Busquet
-* [https://github.com/computationalcore](https://github.com/computationalcore)
+### Versions
 
-## License
+| Free Version                                                                                                       | PRO Version                                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| [![Horizon UI Tailwind CSS React](https://i.ibb.co/1zhBQ2J/horizon-ui-tailwind-2.png)](https://www.horizon-ui.com/?ref=readme-horizon-tailwind-react) | [![Horizon UI Tailwind CSS React PRO](https://i.ibb.co/d0cVzKB/horizon-ui-pro-tailwind.png)](https://www.horizon-ui.com/pro?ref=readme-horizon-tailwind-react) |
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
+### Figma Version
 
+Horizon UI is available in Figma format as well! Check it out on Figma
+Community! 🎨
+[See the Horizon UI Figma design files](https://bit.ly/horizon-figma)
 
-## Acknowledgments
-* [Udacity](https://www.udacity.com/)
-* [Matheus Marsiglio](https://github.com/mtmr0x)
-* [Thales Moreira Carvalho](https://github.com/thalescomp)
+### Reporting Issues
+
+We use GitHub Issues as the official bug tracker for the Horizon UI. Here are
+some advices for our users that want to report an issue:
+
+1. Make sure that you are using the latest version of the Horizon UI Dashbaord.
+   Check the CHANGELOG from your dashboard on our
+   [CHANGE LOG File](https://github.com/horizon-ui/horizon-tailwind-react/blob/main/CHANGELOG.md?ref=readme-horizon-tailwind-react).
+2. Providing us reproducible steps for the issue will shorten the time it takes
+   for it to be fixed.
+3. Some issues may be browser specific, so specifying in what browser you
+   encountered the issue might help.
+
+---
+
+### Community
+
+Connect with the community! Feel free to ask questions, report issues, and meet new people that already use Horizon UI!
+
+💬 [Join the #HorizonUI Discord Community!](https://discord.gg/f6tEKFBd4m)
+
+### Copyright and license
+
+⭐️ [Copyright 2023 Horizon UI ](https://www.horizon-ui.com/?ref=readme-horizon-tailwind-react)
+
+📄 [Horizon UI License](https://www.simmmple.com/licenses?ref=readme-horizon-tailwind-react)

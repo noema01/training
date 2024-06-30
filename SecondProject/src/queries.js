@@ -1,12 +1,13 @@
 import { gql } from '@apollo/client';
 
-export const spacexQ = gql`
-    query ExampleQuery {
-        company {
-            ceo
-        }
-        roadster {
-            apoapsis_au
-        }
-    }
+export const GET_SHIPS = gql`
+query Ships {
+  ships {
+    id
+    name
+    type
+    year_built
+    home_port
+  }
+}
 `;
